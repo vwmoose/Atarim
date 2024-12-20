@@ -15,6 +15,7 @@ class UrlEncodedResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'code' => $this->code,
             'url' => rtrim($this->domain, '/') . '/' . $this->code
         ];
     }
