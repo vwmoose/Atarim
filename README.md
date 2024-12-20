@@ -38,3 +38,8 @@ Authorization: Bearer ********
 ### Postman
 I have included a Postman collection for your convenience. It can be found in the root of this project.
 
+### Testing
+To perform the tests on the two endpoints simply run the tests:
+```
+php artisan test
+```
