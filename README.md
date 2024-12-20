@@ -24,5 +24,5 @@ Authorization: Bearer ********
 ```
 
 ### Postman
-I have included a Postman collection to help when configuring Postman to making requests to test the endpoints. It can be found in the root of this project.
+I have included a Postman collection for your convenience. It can be found in the root of this project.
 

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class install extends Command
 {
@@ -26,6 +27,14 @@ class install extends Command
      */
     public function handle()
     {
+        // create testing database
+        Artisan::call(
+            'migrate',
+            [
+                '--database' => 'sqlite_testing'
+            ]
+        );
+
         // retrieve user
         $user = User::find(1);
 

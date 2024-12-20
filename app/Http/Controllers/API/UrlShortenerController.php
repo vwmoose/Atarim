@@ -6,17 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UrlDecodedResource;
 use App\Http\Resources\UrlEncodedResource;
 use App\Models\Url;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UrlShortenerController extends Controller
 {
     /**
      * encode a url
      *
-     * @return json
+     * @return UrlEncodedResource|JsonResponse
      */
-    public function encodeUrl(Request $request)
+    public function encodeUrl(Request $request): UrlEncodedResource|JsonResponse
     {  
+        // initialise validator instance
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'url' => ['required', 'string', 'url:http,https'],
+                'domain' => ['required', 'string', 'url:http,https']
+            ]
+        );
+
+        // perform validation and respond to errors
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
         // identify the user
         $user = $request->user();
 
@@ -26,7 +42,7 @@ class UrlShortenerController extends Controller
             $url = $user->urls()->create([
                 'code' => self::generateUniqueId(),
                 'domain' => $request->post('domain'),
-                'url' => $request->post('url'),
+                'url' => $request->post('url')
             ]);
 
             // return the resource
@@ -41,10 +57,25 @@ class UrlShortenerController extends Controller
     /**
      * decode a url
      * 
-     * @return json
+     * @param String $code
+     * 
+     * @return UrlDecodedResource|JsonResponse
      */
-    public function decodeUrl(Request $request, String $code)
+    public function decodeUrl(Request $request, String $code): UrlDecodedResource|JsonResponse
     {
+        // initialise validator instance
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'code' => ['string', 'exists:urls,code']
+            ]
+        );
+
+        // perform validation and respond to errors
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
         // identify the user
         $user = $request->user();
 
@@ -65,7 +96,10 @@ class UrlShortenerController extends Controller
         ], 403);
     }
 
-    private static function generateUniqueId()
+    /**
+     * @return String
+     */
+    private static function generateUniqueId(): String
     {
         $key = random_int(100000, 999999);
         $key = str_pad($key, 6, 0, STR_PAD_LEFT);

@@ -13,10 +13,13 @@ test('test encoding/decoding a url via the api', function () {
         ['url:encode', 'url:decode']
     );
  
-    $response = $this->post('/api/encode', [
-        'domain' => 'test.domain',
-        'url' => 'https://my.superlong.test-domain.test?page=1&sort=asc'
-    ]);
+    $response = $this->post(
+        '/api/encode',
+        [
+            'domain' => 'https://test.domain',
+            'url' => 'https://my.superlong.test-domain.test?page=1&sort=asc'
+        ]
+    );
  
     $response->assertJsonIsObject();
 
