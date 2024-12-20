@@ -31,7 +31,8 @@ class install extends Command
         Artisan::call(
             'migrate',
             [
-                '--database' => 'sqlite_testing'
+                '--database' => 'sqlite_testing',
+                '--force' => true,
             ]
         );
 
