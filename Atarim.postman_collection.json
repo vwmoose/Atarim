@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "9ae5eb24-a62b-4370-b346-fb8694898420",
+		"name": "Atarim",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1305576"
+	},
+	"item": [
+		{
+			"name": "encode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "url",
+							"value": "https://www.thisisalongdomain.com/with/some/parameters?and=here_too",
+							"type": "text"
+						},
+						{
+							"key": "domain",
+							"value": "https://atarim.io",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_path}}/encode",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"encode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "decode",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "url",
+							"value": "https://www.mylongurl.com?page=1&sortOn=first_name&sort=asc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_path}}/decode/{code}",
+					"host": [
+						"{{base_path}}"
+					],
+					"path": [
+						"decode",
+						"{code}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

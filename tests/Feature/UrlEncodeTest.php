@@ -2,6 +2,9 @@
 
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 
 test('test encoding/decoding a url via the api', function () {
 

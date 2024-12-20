@@ -3,21 +3,26 @@
 
 ### Installation Instructions
 
-Install the applications locally by running the following command:
+The first step is to copy the `.env.example` and create your own `.env` file.
+
+Next, install laravel locally by running the following command:
 ```
 composer install
 ```
-Now create the database and seed the user table with the atarim user:
+Now create the database and run the seeder that creates the user table with the single atarim user:
 ```
 php artisan migrate --seed
 ```
-And finally run the install command to create your new api authentication token 
+And finally run the install command to create your new api authentication token.  Please make sure you take note of the token returned by the command.
 ```
 php artisan install:api
 ```
 ### API Token based authentication
-This API implememnts an `Authorization` header to restrict access to authorised users.  Please ensure that all requests made to the api endpoints include the your api token generated in the last step of the installation instructions.
+This API implememnts a simple authorisation token approach which is implemented by an `Authorization` header which restricts access to authorised users only.  Please ensure that all requests made to the api endpoints include your api token that you generated in the last step of the installation instructions.  Simply add the Authorization header as per the example below
 ```
 Authorization: Bearer ********
 ```
+
+### Postman
+I have included a Postman collection to help when configuring Postman to making requests to test the endpoints. It can be found in the root of this project.
 
